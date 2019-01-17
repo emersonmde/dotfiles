@@ -98,4 +98,5 @@ set nocompatible
 set backspace=2
 
 " Set relative line numbers
-set rnu
+set number relativenumber
+
