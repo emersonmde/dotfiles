@@ -36,6 +36,9 @@ Plugin 'roxma/vim-hug-neovim-rpc'
 Plugin 'roxma/nvim-yarp'
 Plugin 'zchee/deoplete-go', { 'do': 'make' }
 
+" Used for selecting visual indented text objects
+Plugin 'michaeljsmith/vim-indent-object'
+
 call vundle#end()
 filetype plugin indent on
 
