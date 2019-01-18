@@ -33,12 +33,17 @@ Plug 'sheerun/vim-polyglot'
 "" Used for selecting visual indented text objects
 Plug 'michaeljsmith/vim-indent-object'
 
+" Treat camelcase and snakecase as words
+Plug 'bkad/CamelCaseMotion'
+
+Plug 'scrooloose/nerdcommenter'
+
 call plug#end()
 
 filetype plugin indent on
 
 " Leader - ( Spacebar )
-let mapleader = " "
+let mapleader = ","
 
 " =========== Plugin Config ===========
 " MAKE IT SO!
@@ -81,6 +86,19 @@ autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
 let g:airline_theme='onedark'
 
 
+
+
+" CameCaseMotion
+call camelcasemotion#CreateMotionMappings('<leader>')
+
+" Map iw, ib, and ie motions
+omap <silent> iw <Plug>CamelCaseMotion_iw
+xmap <silent> iw <Plug>CamelCaseMotion_iw
+omap <silent> ib <Plug>CamelCaseMotion_ib
+xmap <silent> ib <Plug>CamelCaseMotion_ib
+omap <silent> ie <Plug>CamelCaseMotion_ie
+xmap <silent> ie <Plug>CamelCaseMotion_ie
+
 " =========== Other Config-ish Stuff ===========
 set encoding=utf-8
 syntax on
@@ -121,7 +139,7 @@ set gdefault      " Never have to type /g at the end of search / replace again
 set ignorecase    " case insensitive searching (unless specified)
 set smartcase
 set hlsearch
-nnoremap <silent> <leader>, :noh<cr> " Stop highlight after searching
+nnoremap <silent> <leader>. :noh<cr> " Stop highlight after searching
 set incsearch
 set showmatch
 
