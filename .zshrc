@@ -31,9 +31,10 @@ source $ZSH/oh-my-zsh.sh
 
 export LANG=en_US.UTF-8
 export SSH_KEY_PATH="~/.ssh/rsa_id"
-export EDITOR='vim'
+export EDITOR='nvim'
 
-alias vi=vim
+
+alias vi=nvim
 
 MANPATH="/usr/local/opt/coreutils/libexec/gnuman:/usr/local/opt/inetutils/libexec/gnuman:$MANPATH:/usr/local/man"
 
