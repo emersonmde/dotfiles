@@ -30,8 +30,8 @@ Plug 'mhinz/vim-janah'
 Plug 'joshdick/onedark.vim'
 Plug 'sheerun/vim-polyglot'
 
-" Used for selecting visual indented text objects
-"Plug 'michaeljsmith/vim-indent-object'
+"" Used for selecting visual indented text objects
+Plug 'michaeljsmith/vim-indent-object'
 
 call plug#end()
 
