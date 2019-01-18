@@ -37,6 +37,9 @@ call plug#end()
 
 filetype plugin indent on
 
+" Leader - ( Spacebar )
+let mapleader = " "
+
 " =========== Plugin Config ===========
 " MAKE IT SO!
 
@@ -69,6 +72,9 @@ let g:deoplete#enable_at_startup = 1
 
 " <TAB>: completion.
 inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+
+" Close the documentation window when completion is done
+autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
 
 " ------ Airline ------
 "let g:airline_theme='luna'
@@ -107,17 +113,21 @@ colorscheme onedark
 filetype plugin indent on
 syntax on
 set number relativenumber
-set incsearch
-set ignorecase
-set smartcase
-set hlsearch
 set nobackup
 set noswapfile
+
+" Searching
+set gdefault      " Never have to type /g at the end of search / replace again
+set ignorecase    " case insensitive searching (unless specified)
+set smartcase
+set hlsearch
+nnoremap <silent> <leader>, :noh<cr> " Stop highlight after searching
+set incsearch
+set showmatch
 
 set linebreak
 set showbreak=+++
 set textwidth=100
-set showmatch
 "set spell
 set visualbell
 
@@ -128,5 +138,57 @@ set smartindent
 set smarttab
 set softtabstop=2
 
+set ttyfast
 set mouse=a
 set clipboard+=unnamed
+
+
+" From https://github.com/colbycheeze/dotfiles/blob/master/vimrc
+
+"set autowrite
+"set autoread
+"au FocusGained,BufEnter * :silent! !
+
+" Save when switching windows
+"au FocusLost,WinLeave * :silent! wa
+
+"Set default font in mac vim and gvim
+set guifont=Inconsolata\ for\ Powerline:h24
+set cursorline    " highlight the current line
+set wildmenu
+set wildmode=list:longest,full
+
+
+" Auto resize Vim splits to active split
+set winwidth=104
+set winheight=5
+set winminheight=5
+set winheight=999
+
+"HTML Editing
+set matchpairs+=<:>
+
+" Treat <li> and <p> tags like the block tags they are
+let g:html_indent_tags = 'li\|p'
+
+" Navigate properly when lines are wrapped
+nnoremap j gj
+nnoremap k gk
+
+" zoom a vim pane, <C-w>= to re-balance
+nnoremap <leader>- :wincmd _<cr>:wincmd \|<cr>
+
+ resize panes
+ nnoremap <silent> <Right> :vertical resize +"5<cr>
+ nnoremap <silent> <Left> :vertical resize -5<cr>
+ nnoremap <silent> <Up> :resize +5<cr>
+ nnoremap <silent> <Down> :resize -5<cr>
+
+ " navigate split screens easily
+nmap <silent> <c-k> :wincmd k<CR>
+nmap <silent> <c-j> :wincmd j<CR>
+nmap <silent> <c-h> :wincmd h<CR>
+nmap <silent> <c-l> :wincmd l<CR>
+
+" automatically rebalance windows on vim resize
+autocmd VimResized * :wincmd =
