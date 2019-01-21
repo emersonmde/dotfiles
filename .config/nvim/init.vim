@@ -30,6 +30,7 @@ Plug 'jiangmiao/auto-pairs'
 Plug 'mhinz/vim-janah'
 Plug 'joshdick/onedark.vim'
 Plug 'sheerun/vim-polyglot'
+Plug 'gosukiwi/vim-atom-dark'
 
 "" Used for selecting visual indented text objects
 Plug 'michaeljsmith/vim-indent-object'
@@ -38,6 +39,10 @@ Plug 'michaeljsmith/vim-indent-object'
 Plug 'bkad/CamelCaseMotion'
 
 Plug 'scrooloose/nerdcommenter'
+
+" Languages
+Plug 'zchee/deoplete-go', { 'do': 'make'}
+Plug 'fatih/vim-go', {'do': ':GoUpdateBinaries' }
 
 call plug#end()
 
@@ -100,6 +105,9 @@ xmap <silent> ib <Plug>CamelCaseMotion_ib
 omap <silent> ie <Plug>CamelCaseMotion_ie
 xmap <silent> ie <Plug>CamelCaseMotion_ie
 
+" ----- GO -----
+let g:go_fmt_command = "goimports"
+
 " =========== Other Config-ish Stuff ===========
 set encoding=utf-8
 syntax on
@@ -127,7 +135,7 @@ if (empty($TMUX))
   endif
 endif
 syntax on
-colorscheme onedark
+colorscheme atom-dark-256
 
 filetype plugin indent on
 syntax on
@@ -151,21 +159,20 @@ set textwidth=100
 set visualbell
 
 set autoindent
-set expandtab
-set shiftwidth=2
 set smartindent
 set smarttab
-set softtabstop=2
+set tabstop=4
+set softtabstop=0
+set shiftwidth=4
+set expandtab
 
 set ttyfast
 set mouse=a
 set clipboard+=unnamed
 
 
-" From https://github.com/colbycheeze/dotfiles/blob/master/vimrc
-
-"set autowrite
-"set autoread
+set autowrite
+set autoread
 "au FocusGained,BufEnter * :silent! !
 
 " Save when switching windows
