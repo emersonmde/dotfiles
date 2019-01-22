@@ -40,6 +40,10 @@ Plug 'bkad/CamelCaseMotion'
 
 Plug 'scrooloose/nerdcommenter'
 
+Plug 'christoomey/vim-tmux-navigator'
+
+Plug 'kien/ctrlp.vim'
+
 " Languages
 Plug 'zchee/deoplete-go', { 'do': 'make'}
 Plug 'fatih/vim-go', {'do': ':GoUpdateBinaries' }
@@ -93,6 +97,10 @@ let g:airline_theme='onedark'
 
 
 
+" ------ CTRLP ------
+let g:ctrlp_map = '<c-p>'
+let g:ctrlp_cmd = 'CtrlP'
+let g:ctrlp_working_path_mode = 'ra'
 
 " CameCaseMotion
 call camelcasemotion#CreateMotionMappings('<leader>')
