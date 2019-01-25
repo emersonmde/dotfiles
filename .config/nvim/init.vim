@@ -35,6 +35,7 @@ Plug 'mhinz/vim-janah'
 Plug 'joshdick/onedark.vim'
 Plug 'sheerun/vim-polyglot'
 Plug 'gosukiwi/vim-atom-dark'
+Plug 'fatih/molokai'
 
 "" Used for selecting visual indented text objects
 Plug 'michaeljsmith/vim-indent-object'
@@ -75,7 +76,7 @@ let mapleader = ","
 
 " ------ NERDtree ------
 "  Open NERDTree with ctrl+n
-map <C-n> :NERDTreeToggle<CR>
+map <C-b> :NERDTreeToggle<CR>
 " Close VIM if NERDTree is the last buffer
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 " Open NERDTree if VIM is opened on a directory
@@ -202,9 +203,9 @@ autocmd FileType go nmap <Leader>c <Plug>(go-coverage-toggle)
 autocmd FileType go nmap <Leader>i <Plug>(go-info)
 
 " Navigate quickfix entries
-map <C-n> :cnext<CR>
-map <C-m> :cprevious<CR>
-nnoremap <leader>a :cclose<CR>
+autocmd FileType go map <C-n> :cnext<CR>
+autocmd FileType go map <C-m> :cprevious<CR>
+autocmd FileType go nnoremap <leader>a :cclose<CR>
 
 " =========== Other Config-ish Stuff ===========
 set encoding=utf-8
@@ -214,8 +215,6 @@ set nocompatible
 set backspace=2
 
 " Theme Config
-"autocmd ColorScheme janah highlight Normal ctermbg=235
-"colorscheme janah
 set termguicolors
 "Use 24-bit (true-color) mode in Vim/Neovim when outside tmux.
 "If you're using tmux version 2.2 or later, you can remove the outermost $TMUX check and use tmux's 24-bit color support
@@ -232,8 +231,14 @@ if (empty($TMUX))
     set termguicolors
   endif
 endif
+
 syntax on
-colorscheme atom-dark-256
+let g:rehash256 = 1
+"let g:molokai_original = 1
+colorscheme molokai
+"colorscheme atom-dark-256
+"autocmd ColorScheme janah highlight Normal ctermbg=235
+"colorscheme janah
 
 filetype plugin indent on
 syntax on
@@ -286,10 +291,10 @@ set wildmode=list:longest,full
 
 
 " Auto resize Vim splits to active split
-set winwidth=104
-set winheight=5
-set winminheight=5
-set winheight=999
+"set winwidth=104
+"set winheight=5
+"set winminheight=5
+"set winheight=999
 
 "HTML Editing
 set matchpairs+=<:>
@@ -305,7 +310,7 @@ nnoremap k gk
 nnoremap <leader>- :wincmd _<cr>:wincmd \|<cr>
 
  resize panes
- nnoremap <silent> <Right> :vertical resize +"5<cr>
+ nnoremap <silent> <Right> :vertical resize +5<cr>
  nnoremap <silent> <Left> :vertical resize -5<cr>
  nnoremap <silent> <Up> :resize +5<cr>
  nnoremap <silent> <Down> :resize -5<cr>
