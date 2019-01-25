@@ -240,6 +240,7 @@ syntax on
 set number relativenumber
 set nobackup
 set noswapfile
+set wildmode=longest,list,full
 
 " Searching
 set gdefault      " Never have to type /g at the end of search / replace again
