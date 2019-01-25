@@ -7,6 +7,7 @@ call plug#begin()
 " Deoplete completion
 Plug 'shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 
+
 " NERDTree File system explorer
 Plug 'scrooloose/nerdtree'
 
@@ -50,9 +51,17 @@ Plug 'christoomey/vim-tmux-navigator'
 " Fuzzy file finding
 Plug 'kien/ctrlp.vim'
 
-" Languages
+" Completion
 Plug 'zchee/deoplete-go', { 'do': 'make'}
+
+" Awesome Go stuff
 Plug 'fatih/vim-go', {'do': ':GoUpdateBinaries' }
+
+" Split and join Go structs
+Plug 'AndrewRadev/splitjoin.vim'
+
+" Code Snippets
+Plug 'SirVer/ultisnips'
 
 call plug#end()
 
@@ -85,17 +94,43 @@ let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 0
 let g:syntastic_check_on_wq = 0
-let g:syntastic_go_checkers = ['go']
+"let g:syntastic_go_checkers = ['go']
 
 " ------ Deoplete ------
+" neocomplete like
+set completeopt+=noinsert
+" deoplete.nvim recommend
+set completeopt+=noselect
+
+" Path to python interpreter for neovim
+let g:python3_host_prog  = '/usr/local/bin/python3'
+" Skip the check of neovim module
+let g:python3_host_skip_check = 1
+
 " Use deoplete.
 let g:deoplete#enable_at_startup = 1
+
+" Auto include parens
+call deoplete#custom#source('_', 'converters', ['converter_auto_paren'])
+
+" Use smartcase.
+call deoplete#custom#option('smart_case', v:true)
 
 " <TAB>: completion.
 inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 
 " Close the documentation window when completion is done
 autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
+
+" <CR>: close popup and save indent.
+inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+function! s:my_cr_function() abort
+  return deoplete#close_popup() . "\<CR>"
+endfunction
+
+" deoplete-go settings
+let g:deoplete#sources#go#gocode_binary = $GOPATH.'/bin/gocode'
+let g:deoplete#sources#go#sort_class = ['package', 'func', 'type', 'var', 'const']
 
 " ------ Airline ------
 "let g:airline_theme='luna'
@@ -126,7 +161,50 @@ let g:AutoPairsShortcutBackInsert = '<M-b>'
 au filetype vim let b:AutoPairs = {'(':')', '[':']', '{':'}',"'":"'", '`':'`'} " Don't autocomplete in vim
 
 " ----- GO -----
+"  Format and fix imports on save
 let g:go_fmt_command = "goimports"
+
+" Only show quickfix window
+let g:go_list_type = "quickfix"
+
+" Use camel case when transforming
+let g:go_addtags_transform = "camelcase"
+
+" Autoshow the definition in the statusbar
+"let g:go_auto_type_info = 1
+
+" Moar color
+let g:go_highlight_types = 1
+let g:go_highlight_function_calls = 1
+let g:go_highlight_operators = 1
+
+" run :GoBuild or :GoTestCompile based on the go file
+function! s:build_go_files()
+  let l:file = expand('%')
+  if l:file =~# '^\f\+_test\.go$'
+    call go#test#Test(0, 1)
+  elseif l:file =~# '^\f\+\.go$'
+    call go#cmd#Build(0)
+  endif
+endfunction
+autocmd FileType go nmap <leader>b :<C-u>call <SID>build_go_files()<CR>
+
+" GoRun
+autocmd FileType go nmap <leader>r  <Plug>(go-run)
+
+" GoTest
+autocmd FileType go nmap <leader>t  <Plug>(go-test)
+
+" Toggle code coverage
+autocmd FileType go nmap <Leader>c <Plug>(go-coverage-toggle)
+
+" Show definition in statusline
+autocmd FileType go nmap <Leader>i <Plug>(go-info)
+
+" Navigate quickfix entries
+map <C-n> :cnext<CR>
+map <C-m> :cprevious<CR>
+nnoremap <leader>a :cclose<CR>
 
 " =========== Other Config-ish Stuff ===========
 set encoding=utf-8
