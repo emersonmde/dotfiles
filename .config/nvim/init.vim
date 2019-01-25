@@ -13,6 +13,9 @@ Plug 'scrooloose/nerdtree'
 " Git flags for NERDTree
 Plug 'Xuyuanp/nerdtree-git-plugin'
 
+" Show git diff flags in gutter
+Plug 'airblade/vim-gitgutter'
+
 " Syntax Checking
 Plug 'scrooloose/syntastic'
 
@@ -38,10 +41,13 @@ Plug 'michaeljsmith/vim-indent-object'
 " Treat camelcase and snakecase as words
 Plug 'bkad/CamelCaseMotion'
 
+" Helps with commenting code
 Plug 'scrooloose/nerdcommenter'
 
+" Switch panes and VIM splits with ctrl+hjkl
 Plug 'christoomey/vim-tmux-navigator'
 
+" Fuzzy file finding
 Plug 'kien/ctrlp.vim'
 
 " Languages
@@ -113,6 +119,12 @@ xmap <silent> ib <Plug>CamelCaseMotion_ib
 omap <silent> ie <Plug>CamelCaseMotion_ie
 xmap <silent> ie <Plug>CamelCaseMotion_ie
 
+
+" ----- AutoPairs -----
+let g:AutoPairsFlyMode = 0
+let g:AutoPairsShortcutBackInsert = '<M-b>'
+au filetype vim let b:AutoPairs = {'(':')', '[':']', '{':'}',"'":"'", '`':'`'} " Don't autocomplete in vim
+
 " ----- GO -----
 let g:go_fmt_command = "goimports"
 
@@ -182,6 +194,7 @@ set clipboard+=unnamed
 set autowrite
 set autoread
 "au FocusGained,BufEnter * :silent! !
+set undofile
 
 " Save when switching windows
 "au FocusLost,WinLeave * :silent! wa
