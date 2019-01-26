@@ -1,4 +1,5 @@
 filetype off
+    
 
 " =========== Include Plugins ===========
 " curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
@@ -164,12 +165,13 @@ au filetype vim let b:AutoPairs = {'(':')', '[':']', '{':'}',"'":"'", '`':'`'} "
 " ----- GO -----
 "  Format and fix imports on save
 let g:go_fmt_command = "goimports"
+" Run :GoMetaLinter on save
+let g:go_metalinter_autosave = 1
+" Customize the save meta linter, the GoMetaLinter command is still unchanged
+let g:go_metalinter_autosave_enabled = ['vet']
 
 " Only show quickfix window
 let g:go_list_type = "quickfix"
-
-" Use camel case when transforming
-let g:go_addtags_transform = "camelcase"
 
 " Autoshow the definition in the statusbar
 "let g:go_auto_type_info = 1
